@@ -12,6 +12,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Task {
+    private String taskId;
     private String taskName;
     private Date started;
     private Date completed;
@@ -23,7 +24,11 @@ public class Task {
     private int saturdayHours;
     private int sundayHours;
 
-    public Task() {
+    public Task(String name) {
+        taskId = null;
+        taskName=name;
+        started = new Date();
+        completed = new Date();
         mondayHours = 0;
         tuesdayHours = 0;
         wednesdayHours = 0;
@@ -31,6 +36,14 @@ public class Task {
         fridayHours = 0;
         saturdayHours = 0;
         sundayHours = 0;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
     public String getTaskName() {

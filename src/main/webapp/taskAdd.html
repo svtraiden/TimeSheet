@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Task</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/knockout-2.2.0.js"></script>
+    <script type="text/javascript" src="assets/js/taskApp.js"></script>
+</head>
+<body>
+<h3>Please add New Task into the form</h3>
+<form data-bind="submit:addNewTask">
+    <label>Task Name</label>
+    <input type="text" data-bind='value:taskName, valueUpdate: "afterkeydown"' /><br>
+    <label>Task Started</label>
+    <input type="text" data-bind='value:started, valueUpdate: "afterkeydown"'  /><br />
+    <label>Task Completed</label>
+    <input type="text" data-bind='value:completed, valueUpdate: "afterkeydown"'  /><br />
+    <label>Monday Hours</label>
+    <input type="text" data-bind='value:mondayHours, valueUpdate: "afterkeydown"'  /><br />
+    <label>Tuesday Hours</label>
+    <input type="text" data-bind='value:tuesdayHours, valueUpdate: "afterkeydown"'  /><br />
+    <label>Wednesday Hours</label>
+    <input type="text" data-bind='value:wednesdayHours, valueUpdate: "afterkeydown"'  /><br />
+    <label>Thursday Hours</label>
+    <input type="text" data-bind='value:thursdayHours, valueUpdate: "afterkeydown"'  /><br />
+    <label>Friday Hours</label>
+    <input type="text" data-bind='value:fridayHours, valueUpdate: "afterkeydown"'  /><br />
+    <label>Saturday Hours</label>
+    <input type="text" data-bind='value:saturdayHours, valueUpdate: "afterkeydown"'  /><br />
+    <label>Sunday Hours</label>
+    <input type="text" data-bind='value:sundayHours, valueUpdate: "afterkeydown"'  /><br />
+    <input type="submit" value="Add"/>
+</form>
+<a href="index.html"><-- GO BACK!</a>
+</body>
+</html>

@@ -4,40 +4,21 @@
     <title>Time Sheet</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/knockout-2.2.0.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-            function TimeSheetRecord(record) {
-                var self = this;
-
-                self.record = ko.observable(record);
-            }
-
-            function TimesheetViewModel(){
-                var self = this;
-                self.timesheetRecords = ko.observableArray([
-                    {Task: "Task 01", Started: "Some starting date", Completed: "Some completion date", Mon: 8, Tue: 8, Wed: 8, Thu: 8,Fri: 8, Sat: 0,Sun: 0},
-                    {Task: "Task 02", Started: "Some starting date", Completed: "Some completion date", Mon: 8, Tue: 8, Wed: 8, Thu: 8,Fri: 8, Sat: 0,Sun: 0},
-                    {Task: "Task 03", Started: "Some starting date", Completed: "Some completion date", Mon: 8, Tue: 8, Wed: 8, Thu: 8,Fri: 8, Sat: 0,Sun: 0},
-                    {Task: "Task 04", Started: "Some starting date", Completed: "Some completion date", Mon: 8, Tue: 8, Wed: 8, Thu: 8,Fri: 8, Sat: 0,Sun: 0},
-                    {Task: "Task 05", Started: "Some starting date", Completed: "Some completion date", Mon: 8, Tue: 8, Wed: 8, Thu: 8,Fri: 8, Sat: 0,Sun: 0}
-                ]);
-
-                //editable data
-                self.records = ko.observableArray([
-
-                ]);
-            }
-
-            ko.applyBindings(new TimesheetViewModel());
-
-        });
-    </script>
+    <script type="text/javascript" src="assets/js/taskApp.js"></script>
 </head>
 <body>
 
 <h2>Timesheet</h2>
 
+<div id="filters">
+    Filters:
+
+    <input type="datetime" />
+
+</div>
+<p>
+    <a href="taskAdd.html">Add New Task</a>
+</p>
 <table>
     <thead><tr>
         <th>Task</th><th>Started</th><th>Completed</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
@@ -45,16 +26,18 @@
     <!-- Todo: Generate table body -->
     <tbody data-bind="foreach: timesheetRecords">
     <tr>
-        <td data-bind="text: Task"></td>
-        <td data-bind="text: Started"></td>
-        <td data-bind="text: Completed"></td>
-        <td data-bind="text: Mon"></td>
-        <td data-bind="text: Tue"></td>
-        <td data-bind="text: Wed"></td>
-        <td data-bind="text: Thu"></td>
-        <td data-bind="text: Fri"></td>
-        <td data-bind="text: Sat"></td>
-        <td data-bind="text: Sun"></td>
+        <td data-bind="text: taskName"></td>
+        <td data-bind="text: started"></td>
+        <td data-bind="text: completed"></td>
+        <td data-bind="text: mondayHours"></td>
+        <td data-bind="text: tuesdayHours"></td>
+        <td data-bind="text: wednesdayHours"></td>
+        <td data-bind="text: thursdayHours"></td>
+        <td data-bind="text: fridayHours"></td>
+        <td data-bind="text: saturdayHours"></td>
+        <td data-bind="text: sundayHours"></td>
+        <td><a href="#" data-bind="click: $root.editTask">Edit</a></td>
+        <td><a href="#" data-bind="click: $root.removeTask">Remove</a></td>
     </tr>
     </tbody>
 </table>
