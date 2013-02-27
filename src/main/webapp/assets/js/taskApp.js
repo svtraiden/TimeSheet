@@ -57,8 +57,8 @@ $(document).ready(function(){
         }
 
         self.addNewTask = function() {
-            var task = new Task({taskName: this.taskName, taskStarted: this.taskStarted,
-                                taskCompleted: this.taskCompleted, mondayHours: this.mondayHours,
+            var task = new Task({taskName: this.taskName, started: this.started,
+                                completed: this.completed, mondayHours: this.mondayHours,
                                 tuesdayHours: this.tuesdayHours, wednesdayHours: this.wednesdayHours,
                                 thursdayHours: this.thursdayHours, fridayHours: this.fridayHours,
                                 saturdayHours: this.saturdayHours, sundayHours: this.sundayHours
@@ -67,10 +67,7 @@ $(document).ready(function(){
             //and updating the list if the response is a list with tasks.
             //display an error message of the response is null
             $.post('/api/add', task, function(data){
-                alert('success');
-
-
-
+                self.timesheetRecords(data);
             })
         }
 

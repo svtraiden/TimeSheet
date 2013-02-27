@@ -21,73 +21,84 @@ import java.util.ArrayList;
 public class TaskController {
 
     //private List<Task> taskList = null;
-    private Task task;
-    private ArrayList<Task> taskList = new ArrayList<Task>(){{add(new Task("Task 01")); add(new Task("Task 02"));
-        add(new Task("Task 03"));
-        add(new Task("Task 04")); add(new Task("Task 05"));}};
-
-
+    private Task task = null;
+    private ArrayList<Task> taskList = null;
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
-        //System.out.println("test");
         return "index";
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    public Task CreateTask() {
-//        //TODO: creating tasks from JSON...
-//        task = new Task();
-//
-//        return task;
-//    }
-
+    /**
+     * Returns the list with all tasks from the DB
+     * @return taskList
+     */
     @RequestMapping(value = "task", method = RequestMethod.POST)
     public @ResponseBody ArrayList<Task> task() {
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("/taskconfig.xml");
         TaskDAO taskDAO = (TaskDAO)ctx.getBean("taskDAO");
-
-        for (Task curTask : taskList) {
-            Task task = new Task(curTask.getTaskName());
-
-            taskDAO.insert(task);
-        }
-
+        taskList = taskDAO.tasks();
         return taskList;
     }
 
+    /**
+     * This method returns only a single task
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "task/{id}",method = RequestMethod.GET)
     public @ResponseBody Task GetTask(@PathVariable int id) {
-
-
-
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("/taskconfig.xml");
+        TaskDAO taskDAO = (TaskDAO)ctx.getBean("taskDAO");
+        task = taskDAO.findById(id);
         return task;
     }
 
+    /**
+     * Deletes a specific task from the database and returns the updated tasks list
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public @ResponseBody ArrayList<Task> DeleteTask (@PathVariable int id) {
-        taskList.remove((int)id);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("/taskconfig.xml");
+        TaskDAO taskDAO = (TaskDAO)ctx.getBean("taskDAO");
+        taskDAO.delete(id);
+        taskList=taskDAO.tasks();
         return taskList;
     }
 
+    /**
+     * Adds new task to the Database and returns the updated tasks list
+     * @param task
+     * @return
+     */
     @RequestMapping(value = "add", method = RequestMethod.POST, headers = {"content-type=application/json"})
     public @ResponseBody ArrayList<Task> addTask(@RequestBody Task task) {
         ApplicationContext context = new ClassPathXmlApplicationContext("/taskconfig.xml");
         TaskDAO taskDAO = (TaskDAO) context.getBean("taskDAO");
-        /*
-        need to grab the object from json request and add it to the db, then return the updated list
-        or to handle a db connection exception.
-         */
         //add the task to the DB
         taskDAO.insert(task);
         //read all tasks from the DB
-        ArrayList<Task> tasksList = taskDAO.tasks();
+        taskList = taskDAO.tasks();
+        return taskList;
+    }
 
-
-
-        return tasksList;
+    /**
+     * Updates a specific task with new data from the web form
+     * @param task
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST, headers = {"content-type=application/json"})
+    public @ResponseBody ArrayList<Task> updateTask(@RequestBody Task task, @PathVariable int id) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("/taskconfig.xml");
+        TaskDAO taskDAO = (TaskDAO) context.getBean("taskDAO");
+        taskDAO.update(id, task);
+        taskList = taskDAO.tasks();
+        return taskList;
     }
 
 }
