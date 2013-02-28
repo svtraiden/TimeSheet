@@ -3,10 +3,7 @@ package com.ebt.app.ajax.datasource;
 import com.ebt.app.ajax.task.Task;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +18,7 @@ public class TaskDAOImpl implements TaskDAO {
     //Constants
     private static final String SQL_INSERT_TASK = "insert into timesheetRecords (task, started, completed, mon, tue, wed, thu, fri, sat, sun) " +
             "values (?,?,?,?,?,?,?,?,?,?)";
-    private static final String SQL_SELECT_ALL = "seelct * from timesheetRecords";
+    private static final String SQL_SELECT_ALL = "select * from timesheetRecords";
     private static final String SQL_FIND_BY_ID = "select * from timesheetRecords where id=?";
     private static final String SQL_DELETE_BY_ID = "delete from timesheetRecords where id=?";
     private static final String SQL_UPDATE_TASK_BY_ID = "update timesheetRecords set task=?, started=?, completed=?, mon=?, tue=?, wed=?, thu=?, " +

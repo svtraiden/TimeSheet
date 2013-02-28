@@ -63,12 +63,18 @@ $(document).ready(function(){
                                 thursdayHours: this.thursdayHours, fridayHours: this.fridayHours,
                                 saturdayHours: this.saturdayHours, sundayHours: this.sundayHours
                             });
+
+
+
             //sending the task object to the server to be added into the db
             //and updating the list if the response is a list with tasks.
             //display an error message of the response is null
-            $.post('/api/add', task, function(data){
+            /*$.post('/api/add', task, function(data){
                 self.timesheetRecords(data);
-            })
+            })*/
+
+            console.log(task.taskName);
+
         }
 
     }
